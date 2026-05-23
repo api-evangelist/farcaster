@@ -1,0 +1,152 @@
+aid: farcaster
+name: Farcaster
+description: >-
+  Farcaster is a decentralised social protocol built on Snapchain, an
+  append-only state machine that stores casts, reactions, follows, and
+  user profile data. The protocol publishes a Hub / Snapchain reference
+  implementation, the Mini Apps SDK (formerly Frames) for distributing
+  interactive apps inside Farcaster feeds, Sign In with Farcaster (SIWF)
+  for authentication, and AuthKit for React-based sign-in. The Warpcast
+  client (now rebranded Farcaster app at farcaster.xyz) is the primary
+  consumer surface. Indexer providers such as Neynar host scaled Hub APIs
+  and value-added read / write / webhook APIs at api.neynar.com.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+position: Producer
+created: '2026-05-23'
+modified: '2026-05-23'
+tags:
+  - Social
+  - Decentralized
+  - Protocol
+  - Mini Apps
+  - Frames
+  - Authentication
+  - Web3
+  - SDKs
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/farcaster/refs/heads/main/apis.yml
+specificationVersion: '0.20'
+apis:
+  - aid: farcaster:snapchain
+    name: Snapchain / Hub API
+    description: >-
+      Query interface for Farcaster's Snapchain network - read casts,
+      reactions, follows, user data, and verifications by FID; submit
+      signed messages; and run a Snapchain node for full replication.
+      Public reference endpoint is hosted at snapchain.farcaster.xyz.
+    humanURL: https://snapchain.farcaster.xyz/
+    baseURL: https://snapchain.farcaster.xyz
+    tags:
+      - Snapchain
+      - Hub API
+      - Reads
+      - Writes
+    properties:
+      - type: Documentation
+        url: https://snapchain.farcaster.xyz/
+      - type: Reference
+        url: https://snapchain.farcaster.xyz/reference
+      - type: Run a Node
+        url: https://snapchain.farcaster.xyz/guides/running-a-node
+  - aid: farcaster:mini-apps-sdk
+    name: Farcaster Mini Apps SDK
+    description: >-
+      JavaScript SDK for building Mini Apps (the evolution of Frames) that
+      run inside Farcaster feeds and clients. Provides host bridge, context,
+      wallet actions, notifications, and analytics for permissionlessly
+      distributed social apps.
+    humanURL: https://miniapps.farcaster.xyz/
+    baseURL: https://miniapps.farcaster.xyz/
+    tags:
+      - Mini Apps
+      - Frames
+      - SDK
+      - Social
+    properties:
+      - type: Documentation
+        url: https://miniapps.farcaster.xyz/
+  - aid: farcaster:siwf
+    name: Sign In with Farcaster (SIWF)
+    description: >-
+      Authentication flow that lets users sign in to third-party apps with
+      their Farcaster identity, returning a verified FID and optional
+      profile data. Backed by EIP-4361-style signed messages.
+    humanURL: https://docs.farcaster.xyz/developers/siwf
+    baseURL: https://docs.farcaster.xyz/developers/siwf
+    tags:
+      - Authentication
+      - SIWF
+      - Identity
+    properties:
+      - type: Documentation
+        url: https://docs.farcaster.xyz/developers/siwf
+  - aid: farcaster:auth-kit
+    name: Farcaster AuthKit (React)
+    description: >-
+      React toolkit wrapping Sign In with Farcaster - provides hooks and
+      components for the QR-code / deep-link handoff to a Farcaster client
+      and returns the verified user context to the host app.
+    humanURL: https://docs.farcaster.xyz/auth-kit/installation
+    baseURL: https://docs.farcaster.xyz/auth-kit/installation
+    tags:
+      - SDK
+      - React
+      - Authentication
+    properties:
+      - type: Documentation
+        url: https://docs.farcaster.xyz/auth-kit/installation
+      - type: Examples
+        url: https://docs.farcaster.xyz/auth-kit/examples
+  - aid: farcaster:neynar
+    name: Neynar Hosted Farcaster API
+    description: >-
+      Third-party indexer providing hosted Hub access, indexed read APIs
+      (users, casts, channels, feeds), write APIs (publish casts,
+      reactions, follows), webhooks for real-time events, a Node.js SDK,
+      and a Mini Apps framework with analytics. Most widely used scaled
+      gateway to Farcaster data.
+    humanURL: https://docs.neynar.com/
+    baseURL: https://api.neynar.com
+    tags:
+      - Neynar
+      - Indexer
+      - Hosted Hub
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://docs.neynar.com/
+      - type: Reference
+        url: https://docs.neynar.com/reference
+  - aid: farcaster:warpcast-api
+    name: Warpcast / Farcaster Client API
+    description: >-
+      Client-side API exposed by the Warpcast / Farcaster app for
+      client-specific surfaces (channels, mentions, direct casts, mini-app
+      contexts) layered above the Snapchain protocol APIs.
+    humanURL: https://docs.farcaster.xyz/reference/warpcast/api
+    baseURL: https://api.warpcast.com
+    tags:
+      - Warpcast
+      - Client API
+      - Channels
+    properties:
+      - type: Documentation
+        url: https://docs.farcaster.xyz/reference/warpcast/api
+common:
+  - type: Website
+    url: https://www.farcaster.xyz/
+  - type: Documentation
+    url: https://docs.farcaster.xyz/
+  - type: Mini Apps
+    url: https://miniapps.farcaster.xyz/
+  - type: Snapchain
+    url: https://snapchain.farcaster.xyz/
+  - type: GitHub
+    url: https://github.com/farcasterxyz
+  - type: Neynar
+    url: https://neynar.com/
+maintainers:
+  - FN: API Evangelist
+    url: https://apievangelist.com
