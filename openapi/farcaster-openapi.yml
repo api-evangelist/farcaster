@@ -1,0 +1,492 @@
+openapi: 3.1.0
+info:
+  title: Farcaster Snapchain Hub HTTP API
+  description: >-
+    HTTP query interface for Farcaster's Snapchain network. Read casts,
+    reactions, follows, user data, verifications and on-chain events by FID;
+    submit signed protobuf messages; and stream hub events. The public
+    reference endpoint is hosted at https://snapchain.farcaster.xyz, but
+    operators typically run their own Snapchain node and bind the HTTP
+    server to a local port (default 3381).
+  version: 1.0.0
+  contact:
+    name: Farcaster
+    url: https://snapchain.farcaster.xyz/
+  license:
+    name: MIT
+servers:
+  - url: https://snapchain.farcaster.xyz
+    description: Public Snapchain reference endpoint
+  - url: http://127.0.0.1:3381
+    description: Default local Snapchain HTTP server
+tags:
+  - name: Casts
+  - name: Reactions
+  - name: Links
+  - name: UserData
+  - name: Verifications
+  - name: OnChain
+  - name: Events
+  - name: Info
+  - name: Submit
+paths:
+  /v1/info:
+    get:
+      tags: [Info]
+      summary: Get hub info
+      parameters:
+        - in: query
+          name: dbstats
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Hub info
+  /v1/fids:
+    get:
+      tags: [Info]
+      summary: List FIDs known by the hub
+      parameters:
+        - in: query
+          name: shard_id
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of FIDs
+  /v1/castById:
+    get:
+      tags: [Casts]
+      summary: Get a cast by FID and hash
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: hash
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cast message
+  /v1/castsByFid:
+    get:
+      tags: [Casts]
+      summary: List casts authored by a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+        - in: query
+          name: startTimestamp
+          schema:
+            type: integer
+        - in: query
+          name: stopTimestamp
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Page of casts
+  /v1/castsByParent:
+    get:
+      tags: [Casts]
+      summary: List casts that reply to a given parent
+      parameters:
+        - in: query
+          name: fid
+          schema:
+            type: integer
+        - in: query
+          name: hash
+          schema:
+            type: string
+        - in: query
+          name: url
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of casts
+  /v1/castsByMention:
+    get:
+      tags: [Casts]
+      summary: List casts mentioning a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of casts
+  /v1/reactionById:
+    get:
+      tags: [Reactions]
+      summary: Get a reaction by FID and target
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: target_fid
+          schema:
+            type: integer
+        - in: query
+          name: target_hash
+          schema:
+            type: string
+        - in: query
+          name: reaction_type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reaction message
+  /v1/reactionsByFid:
+    get:
+      tags: [Reactions]
+      summary: List reactions authored by a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: reaction_type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of reactions
+  /v1/reactionsByCast:
+    get:
+      tags: [Reactions]
+      summary: List reactions targeting a cast
+      parameters:
+        - in: query
+          name: target_fid
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: target_hash
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: reaction_type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of reactions
+  /v1/reactionsByTarget:
+    get:
+      tags: [Reactions]
+      summary: List reactions targeting a URL
+      parameters:
+        - in: query
+          name: url
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: reaction_type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Page of reactions
+  /v1/linkById:
+    get:
+      tags: [Links]
+      summary: Get a link (follow) by FID and target
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: target_fid
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: link_type
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Link message
+  /v1/linksByFid:
+    get:
+      tags: [Links]
+      summary: List links authored by a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: link_type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of links
+  /v1/linksByTargetFid:
+    get:
+      tags: [Links]
+      summary: List links targeting a FID
+      parameters:
+        - in: query
+          name: target_fid
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: link_type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of links
+  /v1/userDataByFid:
+    get:
+      tags: [UserData]
+      summary: List user data records for a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: user_data_type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of user data
+  /v1/storageLimitsByFid:
+    get:
+      tags: [UserData]
+      summary: Get storage limits for a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+      responses:
+        '200':
+          description: Storage limit info
+  /v1/userNameProofByName:
+    get:
+      tags: [UserData]
+      summary: Resolve a username proof by name
+      parameters:
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Username proof
+  /v1/userNameProofsByFid:
+    get:
+      tags: [UserData]
+      summary: List username proofs for a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of username proofs
+  /v1/verificationsByFid:
+    get:
+      tags: [Verifications]
+      summary: List verifications for a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: address
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of verifications
+  /v1/onChainSignersByFid:
+    get:
+      tags: [OnChain]
+      summary: List on-chain signers for a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: signer
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of signers
+  /v1/onChainEventsByFid:
+    get:
+      tags: [OnChain]
+      summary: List on-chain events for a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: event_type
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of on-chain events
+  /v1/onChainIdRegistryEventByAddress:
+    get:
+      tags: [OnChain]
+      summary: Lookup the IdRegistry event for a wallet address
+      parameters:
+        - in: query
+          name: address
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: IdRegistry event
+  /v1/fidAddressType:
+    get:
+      tags: [OnChain]
+      summary: Get the address type for a FID
+      parameters:
+        - $ref: '#/components/parameters/Fid'
+        - in: query
+          name: address
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Address type
+  /v1/events:
+    get:
+      tags: [Events]
+      summary: Stream hub events
+      parameters:
+        - in: query
+          name: from_event_id
+          schema:
+            type: integer
+        - in: query
+          name: shard_index
+          schema:
+            type: integer
+        - in: query
+          name: stop_id
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/PageToken'
+        - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of events
+  /v1/eventById:
+    get:
+      tags: [Events]
+      summary: Get a hub event by id
+      parameters:
+        - in: query
+          name: event_id
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: shard_index
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Event
+  /v1/submitMessage:
+    post:
+      tags: [Submit]
+      summary: Submit a signed protobuf message to the hub
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Submitted message
+  /v1/submitBulkMessages:
+    post:
+      tags: [Submit]
+      summary: Submit a batch of signed protobuf messages
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Submission result
+  /v1/validateMessage:
+    post:
+      tags: [Submit]
+      summary: Validate a signed protobuf message without writing
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Validation result
+components:
+  parameters:
+    Fid:
+      in: query
+      name: fid
+      required: true
+      schema:
+        type: integer
+      description: Farcaster ID
+    PageSize:
+      in: query
+      name: pageSize
+      schema:
+        type: integer
+    PageToken:
+      in: query
+      name: pageToken
+      schema:
+        type: string
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean
