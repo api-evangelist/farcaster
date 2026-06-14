@@ -1,0 +1,1064 @@
+"""
+Farcaster GraphQL Schema
+Derived from the Farcaster Snapchain protobuf definitions:
+  https://github.com/farcasterxyz/snapchain/tree/main/proto/definitions
+
+Farcaster is a decentralised social protocol built on Snapchain, an
+append-only state machine. The canonical wire format is protobuf over
+gRPC (HubService) and an HTTP REST gateway. This GraphQL schema is a
+faithful projection of those types onto SDL, suitable for use with a
+GraphQL gateway or as an API documentation artefact.
+
+Reference:
+  Hub gRPC API  https://docs.farcaster.xyz/reference/hubble/grpc-api
+  Snapchain      https://snapchain.farcaster.xyz/reference
+  Neynar API    https://docs.neynar.com/reference
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+"""
+Hex-encoded bytes string (0x-prefixed).
+Used for hashes, public keys, and signatures.
+"""
+scalar Bytes
+
+"""
+Unsigned 64-bit integer carried as a String to avoid JS precision loss.
+Used for FIDs, block numbers, and Farcaster epoch timestamps.
+"""
+scalar UInt64
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+"""
+Type of hashing scheme used to produce a digest of MessageData.
+"""
+enum HashScheme {
+  HASH_SCHEME_NONE
+  """Blake3 – default scheme for hashing MessageData."""
+  HASH_SCHEME_BLAKE3
+}
+
+"""
+Type of signature scheme used to sign the Message hash.
+"""
+enum SignatureScheme {
+  SIGNATURE_SCHEME_NONE
+  """Ed25519 signature (default)."""
+  SIGNATURE_SCHEME_ED25519
+  """ECDSA signature using the EIP-712 scheme."""
+  SIGNATURE_SCHEME_EIP712
+}
+
+"""
+Discriminates the body carried inside a MessageData envelope.
+"""
+enum MessageType {
+  MESSAGE_TYPE_NONE
+  """Add a new Cast."""
+  MESSAGE_TYPE_CAST_ADD
+  """Remove an existing Cast."""
+  MESSAGE_TYPE_CAST_REMOVE
+  """Add a Reaction to a Cast or URL."""
+  MESSAGE_TYPE_REACTION_ADD
+  """Remove a Reaction."""
+  MESSAGE_TYPE_REACTION_REMOVE
+  """Add a new Link (e.g. follow)."""
+  MESSAGE_TYPE_LINK_ADD
+  """Remove an existing Link."""
+  MESSAGE_TYPE_LINK_REMOVE
+  """Add a Verification of an Ethereum or Solana address."""
+  MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS
+  """Remove a Verification."""
+  MESSAGE_TYPE_VERIFICATION_REMOVE
+  """Add metadata about a user (pfp, display name, bio …)."""
+  MESSAGE_TYPE_USER_DATA_ADD
+  """Add or replace a username proof (fname / ENS / Basename)."""
+  MESSAGE_TYPE_USERNAME_PROOF
+  """A Farcaster Frame (Mini App) action."""
+  MESSAGE_TYPE_FRAME_ACTION
+  """Link Compaction State Message."""
+  MESSAGE_TYPE_LINK_COMPACT_STATE
+  """Lend storage units to another FID."""
+  MESSAGE_TYPE_LEND_STORAGE
+  """Register an Ed25519 key via custody-authenticated message."""
+  MESSAGE_TYPE_KEY_ADD
+  """Revoke an Ed25519 key via custody signature or self-revocation."""
+  MESSAGE_TYPE_KEY_REMOVE
+}
+
+"""
+Farcaster network the message is intended for.
+"""
+enum FarcasterNetwork {
+  FARCASTER_NETWORK_NONE
+  """Public primary network."""
+  FARCASTER_NETWORK_MAINNET
+  """Public test network."""
+  FARCASTER_NETWORK_TESTNET
+  """Private test network."""
+  FARCASTER_NETWORK_DEVNET
+}
+
+"""
+Profile metadata field selector.
+"""
+enum UserDataType {
+  USER_DATA_TYPE_NONE
+  """Profile picture URL."""
+  USER_DATA_TYPE_PFP
+  """Display name."""
+  USER_DATA_TYPE_DISPLAY
+  """Bio / description."""
+  USER_DATA_TYPE_BIO
+  """Profile URL."""
+  USER_DATA_TYPE_URL
+  """Preferred username (fname)."""
+  USER_DATA_TYPE_USERNAME
+  """Current location string."""
+  USER_DATA_TYPE_LOCATION
+  """Twitter / X username."""
+  USER_DATA_TYPE_TWITTER
+  """GitHub username."""
+  USER_DATA_TYPE_GITHUB
+  """Banner image URL."""
+  USER_DATA_TYPE_BANNER
+  """Primary Ethereum address (CAIP-10)."""
+  USER_DATA_PRIMARY_ADDRESS_ETHEREUM
+  """Primary Solana address (CAIP-10)."""
+  USER_DATA_PRIMARY_ADDRESS_SOLANA
+  """Profile token in CAIP-19 format."""
+  USER_DATA_TYPE_PROFILE_TOKEN
+  """URL of the user's live activity."""
+  USER_DATA_TYPE_LIVE_AT
+}
+
+"""
+Social reaction discriminator.
+"""
+enum ReactionType {
+  REACTION_TYPE_NONE
+  """Like the target cast."""
+  REACTION_TYPE_LIKE
+  """Share (recast) the target cast to the user's audience."""
+  REACTION_TYPE_RECAST
+}
+
+"""
+Address protocol for verifications.
+"""
+enum Protocol {
+  PROTOCOL_ETHEREUM
+  PROTOCOL_SOLANA
+}
+
+"""
+Farcaster cast format variant.
+"""
+enum CastType {
+  """Standard cast (≤320 chars)."""
+  CAST
+  """Long-form cast."""
+  LONG_CAST
+  """10 000-character cast."""
+  TEN_K_CAST
+}
+
+"""
+Username proof type – distinguishes fname, ENS, and Basename claims.
+"""
+enum UserNameType {
+  USERNAME_TYPE_NONE
+  """Farcaster fname (off-chain registry)."""
+  USERNAME_TYPE_FNAME
+  """ENS name on Ethereum L1."""
+  USERNAME_TYPE_ENS_L1
+  """Coinbase Basename."""
+  USERNAME_TYPE_BASENAME
+}
+
+"""
+On-chain event category.
+"""
+enum OnChainEventType {
+  EVENT_TYPE_NONE
+  """Signer key added or removed on-chain."""
+  EVENT_TYPE_SIGNER
+  """Signer migration event."""
+  EVENT_TYPE_SIGNER_MIGRATED
+  """FID registered or transferred on the ID Registry contract."""
+  EVENT_TYPE_ID_REGISTER
+  """Storage units rented."""
+  EVENT_TYPE_STORAGE_RENT
+  """Tier (e.g. Pro) purchased."""
+  EVENT_TYPE_TIER_PURCHASE
+}
+
+"""
+Signer key lifecycle event sub-type.
+"""
+enum SignerEventType {
+  SIGNER_EVENT_TYPE_NONE
+  SIGNER_EVENT_TYPE_ADD
+  SIGNER_EVENT_TYPE_REMOVE
+  SIGNER_EVENT_TYPE_ADMIN_RESET
+}
+
+"""
+FID registration / transfer / recovery sub-type.
+"""
+enum IdRegisterEventType {
+  ID_REGISTER_EVENT_TYPE_NONE
+  ID_REGISTER_EVENT_TYPE_REGISTER
+  ID_REGISTER_EVENT_TYPE_TRANSFER
+  ID_REGISTER_EVENT_TYPE_CHANGE_RECOVERY
+}
+
+"""
+Hub event stream category.
+"""
+enum HubEventType {
+  HUB_EVENT_TYPE_NONE
+  """A message was merged into the Hub store."""
+  HUB_EVENT_TYPE_MERGE_MESSAGE
+  """A message was pruned due to storage limits."""
+  HUB_EVENT_TYPE_PRUNE_MESSAGE
+  """A message was revoked (signer key removed)."""
+  HUB_EVENT_TYPE_REVOKE_MESSAGE
+  """A username proof was merged."""
+  HUB_EVENT_TYPE_MERGE_USERNAME_PROOF
+  """An on-chain event was merged."""
+  HUB_EVENT_TYPE_MERGE_ON_CHAIN_EVENT
+  """A merge failed validation."""
+  HUB_EVENT_TYPE_MERGE_FAILURE
+  """A Snapchain block was confirmed."""
+  HUB_EVENT_TYPE_BLOCK_CONFIRMED
+}
+
+"""
+Subscription storage tier.
+"""
+enum TierType {
+  NONE
+  PRO
+}
+
+"""
+Storage unit generation.
+"""
+enum StorageUnitType {
+  UNIT_TYPE_LEGACY
+  UNIT_TYPE_2024
+  UNIT_TYPE_2025
+}
+
+# ---------------------------------------------------------------------------
+# Core Message Types
+# ---------------------------------------------------------------------------
+
+"""
+Identifier used to reference a specific cast by its author FID and hash.
+"""
+type CastId {
+  """Farcaster ID of the cast author."""
+  fid: UInt64!
+  """Blake3 hash of the cast (hex-encoded)."""
+  hash: Bytes!
+}
+
+"""
+An embed attached to a cast – either a URL or a reference to another cast.
+"""
+type Embed {
+  """Embedded URL, if present."""
+  url: String
+  """Embedded cast reference, if present."""
+  castId: CastId
+}
+
+"""
+Body of a cast-add message.
+"""
+type CastAddBody {
+  """Text content of the cast."""
+  text: String!
+  """Farcaster IDs mentioned in the cast."""
+  mentions: [UInt64!]!
+  """Byte offsets of each mention within the text."""
+  mentionsPositions: [Int!]!
+  """URLs or cast references embedded in the cast."""
+  embeds: [Embed!]!
+  """Parent cast, if this is a reply."""
+  parentCastId: CastId
+  """Parent URL (channel URL or external URL), if this is a reply to a URL."""
+  parentUrl: String
+  """Cast format variant."""
+  type: CastType!
+}
+
+"""
+Body of a cast-remove message.
+"""
+type CastRemoveBody {
+  """Hash of the cast being removed."""
+  targetHash: Bytes!
+}
+
+"""
+Body of a reaction (like / recast).
+"""
+type ReactionBody {
+  """Kind of reaction."""
+  type: ReactionType!
+  """Cast being reacted to, if the target is a cast."""
+  targetCastId: CastId
+  """URL being reacted to, if the target is a URL."""
+  targetUrl: String
+}
+
+"""
+Body of a link message (follow, unfollow, etc.).
+"""
+type LinkBody {
+  """Link type string (e.g. \"follow\"), max 8 characters."""
+  type: String!
+  """Target FID this link points to."""
+  targetFid: UInt64
+  """User-defined display timestamp preserved across compaction."""
+  displayTimestamp: Int
+}
+
+"""
+Compaction state for a link store – replaces many link add/remove pairs.
+"""
+type LinkCompactStateBody {
+  """Link type string."""
+  type: String!
+  """Full list of target FIDs that are currently linked."""
+  targetFids: [UInt64!]!
+}
+
+"""
+User-profile metadata field.
+"""
+type UserDataBody {
+  """Which metadata field this record sets."""
+  type: UserDataType!
+  """Value of the field."""
+  value: String!
+}
+
+"""
+Proof of Ethereum or Solana address ownership.
+"""
+type VerificationAddAddressBody {
+  """Address being verified."""
+  address: Bytes!
+  """Signature produced by the address."""
+  claimSignature: Bytes!
+  """Ethereum block hash at signing time."""
+  blockHash: Bytes!
+  """0 = EOA, 1 = smart-contract wallet."""
+  verificationType: Int!
+  """Chain ID (0 for EOA, 1 or 10 for contract verifications)."""
+  chainId: Int!
+  """Address protocol (Ethereum or Solana)."""
+  protocol: Protocol!
+}
+
+"""
+Removal of a previously added address verification.
+"""
+type VerificationRemoveBody {
+  """Address whose verification is being removed."""
+  address: Bytes!
+  """Protocol of the verification."""
+  protocol: Protocol!
+}
+
+"""
+A Farcaster Frame (Mini App) button-press action.
+"""
+type FrameActionBody {
+  """URL of the Frame that triggered the action."""
+  url: String!
+  """1-based index of the pressed button."""
+  buttonIndex: Int!
+  """Cast that contained the Frame URL."""
+  castId: CastId!
+  """Optional free-text input from the user."""
+  inputText: String
+  """Serialised frame state value."""
+  state: Bytes
+  """Chain-specific transaction ID for transaction actions."""
+  transactionId: Bytes
+  """Chain-specific address for transaction actions."""
+  address: Bytes
+}
+
+"""
+Storage lending from one FID to another.
+"""
+type LendStorageBody {
+  """Recipient FID."""
+  toFid: UInt64!
+  """Number of storage units being lent."""
+  numUnits: UInt64!
+  """Generation of storage unit."""
+  unitType: StorageUnitType!
+}
+
+"""
+Gasless (off-chain) Ed25519 key registration.
+"""
+type KeyAddBody {
+  """Ed25519 public key (32 bytes, hex-encoded)."""
+  key: Bytes!
+  """Key type – 1 = Ed25519."""
+  keyType: Int!
+  """EIP-712 signature from the custody address."""
+  custodySignature: Bytes!
+  """Farcaster epoch timestamp after which the custody signature is invalid."""
+  deadline: Int!
+  """Monotonically increasing per-FID user nonce."""
+  nonce: Int!
+  """ABI-encoded SignedKeyRequestMetadata."""
+  metadata: Bytes
+  """Must be 1 (SignedKeyRequest)."""
+  metadataType: Int!
+  """Optional tx hash of the FID registration transaction."""
+  registrationTxHash: Bytes
+  """Allowed MessageType values (scopes)."""
+  scopes: [Int!]!
+  """Sliding expiry window in seconds."""
+  ttl: Int!
+}
+
+"""
+Revocation of a registered Ed25519 key.
+"""
+type KeyRemoveBody {
+  """Ed25519 public key to remove (hex-encoded)."""
+  key: Bytes!
+  """EIP-712 (custody) or Ed25519 (self-revocation) signature."""
+  signature: Bytes!
+  """1 = custody (EIP-712), 2 = self (Ed25519)."""
+  signatureType: Int!
+  """Farcaster epoch timestamp after which the signature is invalid."""
+  deadline: Int!
+  """Nonce (user nonce for custody, app nonce for self-revocation)."""
+  nonce: Int!
+}
+
+"""
+Common envelope for every delta operation on the Farcaster network.
+The body union is discriminated by MessageData.type.
+"""
+type Message {
+  """Parsed message data."""
+  data: MessageData
+  """Blake3 hash of the serialised MessageData (hex-encoded)."""
+  hash: Bytes!
+  """Hash scheme used."""
+  hashScheme: HashScheme!
+  """Signature of the hash."""
+  signature: Bytes!
+  """Signature scheme used."""
+  signatureScheme: SignatureScheme!
+  """Public key or address that produced the signature (hex-encoded)."""
+  signer: Bytes!
+}
+
+"""
+Decoded payload of a Message envelope.
+"""
+type MessageData {
+  """Discriminates the body field."""
+  type: MessageType!
+  """Farcaster ID of the author."""
+  fid: UInt64!
+  """Farcaster epoch timestamp in seconds (epoch: Jan 1 2021 00:00:00 UTC)."""
+  timestamp: Int!
+  """Network this message targets."""
+  network: FarcasterNetwork!
+
+  # Body variants – exactly one will be non-null, matching `type`
+  castAddBody: CastAddBody
+  castRemoveBody: CastRemoveBody
+  reactionBody: ReactionBody
+  verificationAddAddressBody: VerificationAddAddressBody
+  verificationRemoveBody: VerificationRemoveBody
+  userDataBody: UserDataBody
+  linkBody: LinkBody
+  usernameProfBody: UserNameProof
+  frameActionBody: FrameActionBody
+  linkCompactStateBody: LinkCompactStateBody
+  lendStorageBody: LendStorageBody
+  keyAddBody: KeyAddBody
+  keyRemoveBody: KeyRemoveBody
+}
+
+# ---------------------------------------------------------------------------
+# Username / FNS Proof
+# ---------------------------------------------------------------------------
+
+"""
+Proof that a given FID owns a username (fname, ENS, or Basename).
+"""
+type UserNameProof {
+  """Timestamp of the proof (Unix seconds)."""
+  timestamp: UInt64!
+  """Username bytes (UTF-8 encoded)."""
+  name: Bytes!
+  """Owner address (hex-encoded)."""
+  owner: Bytes!
+  """Signature bytes (hex-encoded)."""
+  signature: Bytes!
+  """FID claiming this username."""
+  fid: UInt64!
+  """Username registry type."""
+  type: UserNameType!
+}
+
+# ---------------------------------------------------------------------------
+# On-Chain Events
+# ---------------------------------------------------------------------------
+
+"""
+Body of a signer key lifecycle event.
+"""
+type SignerEventBody {
+  """Ed25519 public key (hex-encoded)."""
+  key: Bytes!
+  """Key type – 1 = Ed25519."""
+  keyType: Int!
+  """Add / remove / admin-reset."""
+  eventType: SignerEventType!
+  """ABI-encoded metadata."""
+  metadata: Bytes
+  """Metadata type discriminator."""
+  metadataType: Int!
+}
+
+"""
+Body emitted when the signer set is migrated.
+"""
+type SignerMigratedEventBody {
+  """Farcaster epoch timestamp of the migration."""
+  migratedAt: Int!
+}
+
+"""
+Body of an FID registration, transfer, or recovery change event.
+"""
+type IdRegisterEventBody {
+  """Recipient address (hex-encoded)."""
+  to: Bytes!
+  """Sub-type: register / transfer / change-recovery."""
+  eventType: IdRegisterEventType!
+  """Source address for transfers (hex-encoded)."""
+  from: Bytes
+  """New recovery address (hex-encoded)."""
+  recoveryAddress: Bytes
+}
+
+"""
+Body of a storage rent event.
+"""
+type StorageRentEventBody {
+  """Paying address (hex-encoded)."""
+  payer: Bytes!
+  """Number of storage units purchased."""
+  units: Int!
+  """Unix timestamp when these units expire."""
+  expiry: Int!
+}
+
+"""
+Body of a tier purchase event.
+"""
+type TierPurchaseBody {
+  """Tier type purchased."""
+  tierType: TierType!
+  """Duration of the subscription in days."""
+  forDays: UInt64!
+  """Payer address (hex-encoded)."""
+  payer: Bytes!
+}
+
+"""
+An event emitted by on-chain Farcaster contracts (IdRegistry, KeyRegistry, StorageRegistry).
+"""
+type OnChainEvent {
+  """Event category."""
+  type: OnChainEventType!
+  """EVM chain ID (e.g. 10 for OP Mainnet)."""
+  chainId: Int!
+  """Block number on the chain."""
+  blockNumber: Int!
+  """Block hash (hex-encoded)."""
+  blockHash: Bytes!
+  """Unix timestamp of the block."""
+  blockTimestamp: UInt64!
+  """Transaction hash (hex-encoded)."""
+  transactionHash: Bytes!
+  """Log index within the transaction."""
+  logIndex: Int!
+  """FID involved in this event."""
+  fid: UInt64!
+  """Transaction index within the block."""
+  txIndex: Int!
+  """Schema version of the event body."""
+  version: Int!
+
+  # Body variants – exactly one will be non-null, matching `type`
+  signerEventBody: SignerEventBody
+  signerMigratedEventBody: SignerMigratedEventBody
+  idRegisterEventBody: IdRegisterEventBody
+  storageRentEventBody: StorageRentEventBody
+  tierPurchaseEventBody: TierPurchaseBody
+}
+
+# ---------------------------------------------------------------------------
+# Hub Events (stream)
+# ---------------------------------------------------------------------------
+
+"""
+Merge-message event body.
+"""
+type MergeMessageBody {
+  """The message that was merged."""
+  message: Message!
+  """Messages deleted as a result of this merge (e.g. conflicting adds)."""
+  deletedMessages: [Message!]!
+}
+
+"""
+Prune event body – message removed due to per-FID storage limits.
+"""
+type PruneMessageBody {
+  message: Message!
+}
+
+"""
+Revoke event body – message removed because its signing key was revoked.
+"""
+type RevokeMessageBody {
+  message: Message!
+}
+
+"""
+Username proof merge event body.
+"""
+type MergeUserNameProofBody {
+  usernameProof: UserNameProof
+  deletedUsernameProof: UserNameProof
+  usernameProofMessage: Message
+  deletedUsernameProofMessage: Message
+}
+
+"""
+On-chain event merge body.
+"""
+type MergeOnChainEventBody {
+  onChainEvent: OnChainEvent!
+}
+
+"""
+Merge failure body – validation rejected a message.
+"""
+type MergeFailureBody {
+  message: Message!
+  """Machine-readable error code."""
+  code: String!
+  """Human-readable reason."""
+  reason: String!
+}
+
+"""
+Block confirmation event body – emitted once per Snapchain block.
+"""
+type BlockConfirmedBody {
+  blockNumber: UInt64!
+  shardIndex: Int!
+  timestamp: UInt64!
+  blockHash: Bytes!
+  totalEvents: UInt64!
+  maxBlockEventSeqnum: UInt64!
+}
+
+"""
+An event emitted by a Snapchain Hub node.
+"""
+type HubEvent {
+  """Event category."""
+  type: HubEventType!
+  """Monotonically increasing event ID within the Hub."""
+  id: UInt64!
+  """Snapchain block number containing this event."""
+  blockNumber: UInt64!
+  """Shard this event belongs to."""
+  shardIndex: Int!
+  """Unix timestamp (seconds)."""
+  timestamp: UInt64!
+
+  # Body variants – exactly one non-null per event type
+  mergeMessageBody: MergeMessageBody
+  pruneMessageBody: PruneMessageBody
+  revokeMessageBody: RevokeMessageBody
+  mergeUserNameProofBody: MergeUserNameProofBody
+  mergeOnChainEventBody: MergeOnChainEventBody
+  mergeFailureBody: MergeFailureBody
+  blockConfirmedBody: BlockConfirmedBody
+}
+
+# ---------------------------------------------------------------------------
+# Higher-Level Social Graph Types
+# (composite / Neynar-style read models)
+# ---------------------------------------------------------------------------
+
+"""
+Resolved Farcaster user profile, assembled from UserData messages.
+"""
+type FarcasterUser {
+  """Farcaster ID."""
+  fid: UInt64!
+  """Active fname or ENS username."""
+  username: String
+  """Display name."""
+  displayName: String
+  """Bio text."""
+  bio: String
+  """Profile picture URL."""
+  pfpUrl: String
+  """Profile URL."""
+  url: String
+  """Banner image URL."""
+  bannerUrl: String
+  """Location string."""
+  location: String
+  """Twitter / X handle."""
+  twitter: String
+  """GitHub handle."""
+  github: String
+  """Primary Ethereum address (CAIP-10)."""
+  primaryAddressEthereum: String
+  """Primary Solana address (CAIP-10)."""
+  primaryAddressSolana: String
+  """All registered username proofs for this FID."""
+  usernameProofs: [UserNameProof!]!
+  """Verified address proofs."""
+  verifications: [Message!]!
+  """Current storage allocation in units."""
+  storageUnits: Int
+}
+
+"""
+A resolved cast with full author context and engagement counts.
+"""
+type Cast {
+  """Unique hash of this cast (hex-encoded)."""
+  hash: Bytes!
+  """Underlying Message envelope."""
+  message: Message!
+  """Resolved author profile."""
+  author: FarcasterUser!
+  """Parsed cast body."""
+  body: CastAddBody!
+  """Number of likes."""
+  likesCount: Int
+  """Number of recasts."""
+  recastsCount: Int
+  """Number of direct replies."""
+  repliesCount: Int
+  """Parent cast, if this is a reply."""
+  parentCast: Cast
+  """Replies to this cast."""
+  replies: [Cast!]!
+}
+
+"""
+A resolved reaction with author and target context.
+"""
+type Reaction {
+  """Underlying Message envelope."""
+  message: Message!
+  """Parsed reaction body."""
+  body: ReactionBody!
+  """User who reacted."""
+  author: FarcasterUser!
+  """Resolved target cast, if the reaction targets a cast."""
+  targetCast: Cast
+}
+
+"""
+A resolved link (follow / unfollow) with both user profiles.
+"""
+type Link {
+  """Underlying Message envelope."""
+  message: Message!
+  """Parsed link body."""
+  body: LinkBody!
+  """User who created the link."""
+  from: FarcasterUser!
+  """User the link points to."""
+  to: FarcasterUser!
+}
+
+"""
+A Farcaster Channel (parent URL space, e.g. /dev, /founders).
+"""
+type Channel {
+  """Channel URL (e.g. https://warpcast.com/~/channel/dev)."""
+  url: String!
+  """Short channel identifier."""
+  id: String!
+  """Human-readable channel name."""
+  name: String!
+  """Channel description."""
+  description: String
+  """Channel image URL."""
+  imageUrl: String
+  """FID of the channel host/creator."""
+  hostFid: UInt64!
+  """Resolved host profile."""
+  host: FarcasterUser
+  """Number of followers."""
+  followersCount: Int
+  """Recent casts in this channel."""
+  recentCasts: [Cast!]!
+}
+
+"""
+A Farcaster Frame (Mini App) interaction surface embedded in a cast.
+"""
+type Frame {
+  """Frame endpoint URL."""
+  url: String!
+  """Frame title, if provided in frame metadata."""
+  title: String
+  """OG image URL shown before interaction."""
+  imageUrl: String
+  """Button labels (1-4)."""
+  buttons: [FrameButton!]!
+  """Whether the frame supports input text."""
+  hasInput: Boolean!
+  """Frame spec version (e.g. \"vNext\")."""
+  version: String
+}
+
+"""
+A single action button within a Frame.
+"""
+type FrameButton {
+  """1-based button index."""
+  index: Int!
+  """Button label text."""
+  label: String!
+  """Action type (post / post_redirect / link / mint / tx)."""
+  action: String!
+  """Target URL for link or tx actions."""
+  target: String
+}
+
+"""
+Current storage allocation for an FID.
+"""
+type StorageUnit {
+  """Storage unit generation."""
+  unitType: StorageUnitType!
+  """Number of units allocated."""
+  units: Int!
+  """Expiry as Farcaster epoch timestamp."""
+  expiry: Int
+}
+
+# ---------------------------------------------------------------------------
+# Hub / Node Info Types
+# ---------------------------------------------------------------------------
+
+"""
+Hub node identity and sync status.
+"""
+type Hub {
+  """Peer-to-peer node identifier."""
+  peerId: String!
+  """Hub software version string."""
+  version: String!
+  """Whether this node is synced to the head of the Snapchain."""
+  isSynced: Boolean!
+  """Nickname configured for the node."""
+  nickname: String
+  """Root hash of the sync trie."""
+  rootHash: String
+  """Farcaster network this node is on."""
+  network: FarcasterNetwork!
+}
+
+"""
+Sync status of a Hub relative to a peer.
+"""
+type SyncStatus {
+  """Peer node identifier."""
+  peerId: String!
+  """Whether this node is behind the peer."""
+  isBehind: Boolean!
+  """Whether the peer is in sync with this node."""
+  inSync: Boolean!
+  """Number of diverging messages detected."""
+  divergenceSeqno: UInt64
+  """Number of messages in our store."""
+  ourMessages: UInt64
+  """Number of messages in the peer's store."""
+  theirMessages: UInt64
+}
+
+# ---------------------------------------------------------------------------
+# Query
+# ---------------------------------------------------------------------------
+
+"""
+Read-only entry points mirroring the HubService gRPC surface.
+"""
+type Query {
+  # --- Node Info ---
+
+  """Information about this Hub node."""
+  hubInfo: Hub
+
+  """Sync status relative to one or all connected peers."""
+  syncStatus(peerId: String): [SyncStatus!]!
+
+  # --- FIDs ---
+
+  """List all registered FIDs, optionally paginated."""
+  fids(pageSize: Int, pageToken: String): [UInt64!]!
+
+  # --- User Data / Profile ---
+
+  """Retrieve a specific UserData field for an FID."""
+  userData(fid: UInt64!, type: UserDataType!): Message
+
+  """All UserData messages for an FID."""
+  userDataByFid(fid: UInt64!): [Message!]!
+
+  """Resolved profile assembled from all UserData messages for an FID."""
+  farcasterUser(fid: UInt64!): FarcasterUser
+
+  # --- Casts ---
+
+  """Retrieve a specific cast by its CastId."""
+  cast(fid: UInt64!, hash: Bytes!): Message
+
+  """All casts published by an FID."""
+  castsByFid(fid: UInt64!, pageSize: Int, pageToken: String): [Message!]!
+
+  """Casts that are direct replies to a given cast."""
+  castsByParent(parentFid: UInt64, parentHash: Bytes, parentUrl: String, pageSize: Int, pageToken: String): [Message!]!
+
+  """Casts that mention a given FID."""
+  castsByMention(fid: UInt64!, pageSize: Int, pageToken: String): [Message!]!
+
+  # --- Reactions ---
+
+  """A specific reaction."""
+  reaction(fid: UInt64!, reactionType: ReactionType!, targetFid: UInt64, targetHash: Bytes, targetUrl: String): Message
+
+  """All reactions published by an FID."""
+  reactionsByFid(fid: UInt64!, reactionType: ReactionType, pageSize: Int, pageToken: String): [Message!]!
+
+  """All reactions on a specific cast."""
+  reactionsByCast(targetFid: UInt64!, targetHash: Bytes!, reactionType: ReactionType, pageSize: Int, pageToken: String): [Message!]!
+
+  """All reactions targeting a URL or cast."""
+  reactionsByTarget(targetUrl: String, targetFid: UInt64, targetHash: Bytes, reactionType: ReactionType, pageSize: Int, pageToken: String): [Message!]!
+
+  # --- Links (Social Graph) ---
+
+  """A specific link."""
+  link(fid: UInt64!, linkType: String!, targetFid: UInt64!): Message
+
+  """All links (e.g. follows) created by an FID."""
+  linksByFid(fid: UInt64!, linkType: String, pageSize: Int, pageToken: String): [Message!]!
+
+  """All links pointing to a given FID."""
+  linksByTarget(targetFid: UInt64!, linkType: String, pageSize: Int, pageToken: String): [Message!]!
+
+  # --- Verifications ---
+
+  """A specific address verification for an FID."""
+  verification(fid: UInt64!, address: Bytes!): Message
+
+  """All address verifications for an FID."""
+  verificationsByFid(fid: UInt64!, pageSize: Int, pageToken: String): [Message!]!
+
+  # --- Username Proofs ---
+
+  """Username proof for a specific name."""
+  usernameProof(name: String!): UserNameProof
+
+  """All username proofs registered to an FID."""
+  usernameProofsByFid(fid: UInt64!): [UserNameProof!]!
+
+  # --- On-Chain Events ---
+
+  """On-chain signer events for an FID."""
+  onChainSignersByFid(fid: UInt64!, pageSize: Int, pageToken: String): [OnChainEvent!]!
+
+  """On-chain events for an FID by category."""
+  onChainEvents(fid: UInt64!, eventType: OnChainEventType!, pageSize: Int, pageToken: String): [OnChainEvent!]!
+
+  """Current storage limits for an FID."""
+  storageLimitsByFid(fid: UInt64!): [StorageUnit!]!
+
+  # --- Hub Event Log ---
+
+  """Retrieve a specific Hub event by ID."""
+  hubEvent(id: UInt64!): HubEvent
+
+  """Paginated Hub event log."""
+  hubEvents(fromEventId: UInt64, pageSize: Int, pageToken: String): [HubEvent!]!
+}
+
+# ---------------------------------------------------------------------------
+# Mutation
+# ---------------------------------------------------------------------------
+
+"""
+Write operations – submit signed messages to the Snapchain network.
+All messages must be pre-signed by the FID's Ed25519 app key.
+"""
+type Mutation {
+  """
+  Submit a signed Message to the Hub.
+  The message must be serialised and signed client-side before submission.
+  Returns the merged Message on success.
+  """
+  submitMessage(
+    """Hex-encoded serialised Message protobuf."""
+    messageBytes: Bytes!
+  ): Message!
+}
+
+# ---------------------------------------------------------------------------
+# Subscription
+# ---------------------------------------------------------------------------
+
+"""
+Real-time event stream from the Snapchain Hub.
+"""
+type Subscription {
+  """
+  Subscribe to the live Hub event stream, optionally filtered by event type
+  and starting from a given event ID.
+  """
+  hubEvents(
+    eventTypes: [HubEventType!]
+    fromEventId: UInt64
+  ): HubEvent!
+}
