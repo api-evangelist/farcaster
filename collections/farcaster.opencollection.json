@@ -1,0 +1,891 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Farcaster Snapchain Hub HTTP API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get hub info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/info",
+            "params": [
+              {
+                "name": "dbstats",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get hub info"
+        },
+        {
+          "info": {
+            "name": "List FIDs known by the hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/fids",
+            "params": [
+              {
+                "name": "shard_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List FIDs known by the hub"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Casts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a cast by FID and hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/castById",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a cast by FID and hash"
+        },
+        {
+          "info": {
+            "name": "List casts authored by a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/castsByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startTimestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stopTimestamp",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List casts authored by a FID"
+        },
+        {
+          "info": {
+            "name": "List casts that reply to a given parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/castsByParent",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List casts that reply to a given parent"
+        },
+        {
+          "info": {
+            "name": "List casts mentioning a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/castsByMention",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List casts mentioning a FID"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a reaction by FID and target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/reactionById",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "target_fid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_hash",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reaction_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a reaction by FID and target"
+        },
+        {
+          "info": {
+            "name": "List reactions authored by a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/reactionsByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "reaction_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List reactions authored by a FID"
+        },
+        {
+          "info": {
+            "name": "List reactions targeting a cast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/reactionsByCast",
+            "params": [
+              {
+                "name": "target_fid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_hash",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reaction_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List reactions targeting a cast"
+        },
+        {
+          "info": {
+            "name": "List reactions targeting a URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/reactionsByTarget",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reaction_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List reactions targeting a URL"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a link (follow) by FID and target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/linkById",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "target_fid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "link_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a link (follow) by FID and target"
+        },
+        {
+          "info": {
+            "name": "List links authored by a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/linksByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "link_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List links authored by a FID"
+        },
+        {
+          "info": {
+            "name": "List links targeting a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/linksByTargetFid",
+            "params": [
+              {
+                "name": "target_fid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "link_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List links targeting a FID"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "UserData",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List user data records for a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/userDataByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "user_data_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List user data records for a FID"
+        },
+        {
+          "info": {
+            "name": "Get storage limits for a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/storageLimitsByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              }
+            ]
+          },
+          "docs": "Get storage limits for a FID"
+        },
+        {
+          "info": {
+            "name": "Resolve a username proof by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/userNameProofByName",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Resolve a username proof by name"
+        },
+        {
+          "info": {
+            "name": "List username proofs for a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/userNameProofsByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List username proofs for a FID"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Verifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List verifications for a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/verificationsByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List verifications for a FID"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OnChain",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List on-chain signers for a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/onChainSignersByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "signer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List on-chain signers for a FID"
+        },
+        {
+          "info": {
+            "name": "List on-chain events for a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/onChainEventsByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "event_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List on-chain events for a FID"
+        },
+        {
+          "info": {
+            "name": "Lookup the IdRegistry event for a wallet address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/onChainIdRegistryEventByAddress",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lookup the IdRegistry event for a wallet address"
+        },
+        {
+          "info": {
+            "name": "Get the address type for a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/fidAddressType",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the address type for a FID"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stream hub events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/events",
+            "params": [
+              {
+                "name": "from_event_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shard_index",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stop_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Stream hub events"
+        },
+        {
+          "info": {
+            "name": "Get a hub event by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/eventById",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shard_index",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a hub event by id"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Submit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a signed protobuf message to the hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://snapchain.farcaster.xyz/v1/submitMessage"
+          },
+          "docs": "Submit a signed protobuf message to the hub"
+        },
+        {
+          "info": {
+            "name": "Submit a batch of signed protobuf messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://snapchain.farcaster.xyz/v1/submitBulkMessages"
+          },
+          "docs": "Submit a batch of signed protobuf messages"
+        },
+        {
+          "info": {
+            "name": "Validate a signed protobuf message without writing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://snapchain.farcaster.xyz/v1/validateMessage"
+          },
+          "docs": "Validate a signed protobuf message without writing"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
