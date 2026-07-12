@@ -1,0 +1,29 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.farcaster.xyz
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jul 23 00:13:16 2026 GMT
+  hsts: true
+  hsts_max_age: 15552000
+- host: snapchain.farcaster.xyz
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 16 03:07:29 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+- host: miniapps.farcaster.xyz
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 29 14:18:34 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+domains:
+- domain: farcaster.xyz
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
