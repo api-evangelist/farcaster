@@ -127,6 +127,8 @@ apis:
   - type: Documentation
     url: https://docs.farcaster.xyz/reference/warpcast/api
 common:
+- type: AgenticAccess
+  url: agentic-access/farcaster-agentic-access.yml
 - type: DomainSecurity
   url: security/farcaster-domain-security.yml
 - type: Website
