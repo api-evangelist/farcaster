@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Farcaster Snapchain Hub HTTP Casts Reactions API
+  description: HTTP query interface for Farcaster's Snapchain network. Read casts, reactions, follows, user data, verifications and on-chain events by FID; submit signed protobuf messages; and stream hub events. The public reference endpoint is hosted at https://snapchain.farcaster.xyz, but operators typically run their own Snapchain node and bind the HTTP server to a local port (default 3381).
+  version: 1.0.0
+  contact:
+    name: Farcaster
+    url: https://snapchain.farcaster.xyz/
+  license:
+    name: MIT
+servers:
+- url: https://snapchain.farcaster.xyz
+  description: Public Snapchain reference endpoint
+- url: http://127.0.0.1:3381
+  description: Default local Snapchain HTTP server
+tags:
+- name: Reactions
+paths:
+  /v1/reactionById:
+    get:
+      tags:
+      - Reactions
+      summary: Get a reaction by FID and target
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      - in: query
+        name: target_fid
+        schema:
+          type: integer
+      - in: query
+        name: target_hash
+        schema:
+          type: string
+      - in: query
+        name: reaction_type
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Reaction message
+  /v1/reactionsByFid:
+    get:
+      tags:
+      - Reactions
+      summary: List reactions authored by a FID
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      - in: query
+        name: reaction_type
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of reactions
+  /v1/reactionsByCast:
+    get:
+      tags:
+      - Reactions
+      summary: List reactions targeting a cast
+      parameters:
+      - in: query
+        name: target_fid
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: target_hash
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: reaction_type
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of reactions
+  /v1/reactionsByTarget:
+    get:
+      tags:
+      - Reactions
+      summary: List reactions targeting a URL
+      parameters:
+      - in: query
+        name: url
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: reaction_type
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Page of reactions
+components:
+  parameters:
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean
+    PageToken:
+      in: query
+      name: pageToken
+      schema:
+        type: string
+    PageSize:
+      in: query
+      name: pageSize
+      schema:
+        type: integer
+    Fid:
+      in: query
+      name: fid
+      required: true
+      schema:
+        type: integer
+      description: Farcaster ID

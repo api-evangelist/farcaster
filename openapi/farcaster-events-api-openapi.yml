@@ -1,0 +1,77 @@
+openapi: 3.1.0
+info:
+  title: Farcaster Snapchain Hub HTTP Casts Events API
+  description: HTTP query interface for Farcaster's Snapchain network. Read casts, reactions, follows, user data, verifications and on-chain events by FID; submit signed protobuf messages; and stream hub events. The public reference endpoint is hosted at https://snapchain.farcaster.xyz, but operators typically run their own Snapchain node and bind the HTTP server to a local port (default 3381).
+  version: 1.0.0
+  contact:
+    name: Farcaster
+    url: https://snapchain.farcaster.xyz/
+  license:
+    name: MIT
+servers:
+- url: https://snapchain.farcaster.xyz
+  description: Public Snapchain reference endpoint
+- url: http://127.0.0.1:3381
+  description: Default local Snapchain HTTP server
+tags:
+- name: Events
+paths:
+  /v1/events:
+    get:
+      tags:
+      - Events
+      summary: Stream hub events
+      parameters:
+      - in: query
+        name: from_event_id
+        schema:
+          type: integer
+      - in: query
+        name: shard_index
+        schema:
+          type: integer
+      - in: query
+        name: stop_id
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of events
+  /v1/eventById:
+    get:
+      tags:
+      - Events
+      summary: Get a hub event by id
+      parameters:
+      - in: query
+        name: event_id
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: shard_index
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Event
+components:
+  parameters:
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean
+    PageSize:
+      in: query
+      name: pageSize
+      schema:
+        type: integer
+    PageToken:
+      in: query
+      name: pageToken
+      schema:
+        type: string

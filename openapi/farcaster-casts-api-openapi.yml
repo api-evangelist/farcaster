@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Farcaster Snapchain Hub HTTP Casts API
+  description: HTTP query interface for Farcaster's Snapchain network. Read casts, reactions, follows, user data, verifications and on-chain events by FID; submit signed protobuf messages; and stream hub events. The public reference endpoint is hosted at https://snapchain.farcaster.xyz, but operators typically run their own Snapchain node and bind the HTTP server to a local port (default 3381).
+  version: 1.0.0
+  contact:
+    name: Farcaster
+    url: https://snapchain.farcaster.xyz/
+  license:
+    name: MIT
+servers:
+- url: https://snapchain.farcaster.xyz
+  description: Public Snapchain reference endpoint
+- url: http://127.0.0.1:3381
+  description: Default local Snapchain HTTP server
+tags:
+- name: Casts
+paths:
+  /v1/castById:
+    get:
+      tags:
+      - Casts
+      summary: Get a cast by FID and hash
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      - in: query
+        name: hash
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Cast message
+  /v1/castsByFid:
+    get:
+      tags:
+      - Casts
+      summary: List casts authored by a FID
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      - in: query
+        name: startTimestamp
+        schema:
+          type: integer
+      - in: query
+        name: stopTimestamp
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Page of casts
+  /v1/castsByParent:
+    get:
+      tags:
+      - Casts
+      summary: List casts that reply to a given parent
+      parameters:
+      - in: query
+        name: fid
+        schema:
+          type: integer
+      - in: query
+        name: hash
+        schema:
+          type: string
+      - in: query
+        name: url
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of casts
+  /v1/castsByMention:
+    get:
+      tags:
+      - Casts
+      summary: List casts mentioning a FID
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of casts
+components:
+  parameters:
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean
+    PageToken:
+      in: query
+      name: pageToken
+      schema:
+        type: string
+    PageSize:
+      in: query
+      name: pageSize
+      schema:
+        type: integer
+    Fid:
+      in: query
+      name: fid
+      required: true
+      schema:
+        type: integer
+      description: Farcaster ID

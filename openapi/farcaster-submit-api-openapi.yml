@@ -1,0 +1,63 @@
+openapi: 3.1.0
+info:
+  title: Farcaster Snapchain Hub HTTP Casts Submit API
+  description: HTTP query interface for Farcaster's Snapchain network. Read casts, reactions, follows, user data, verifications and on-chain events by FID; submit signed protobuf messages; and stream hub events. The public reference endpoint is hosted at https://snapchain.farcaster.xyz, but operators typically run their own Snapchain node and bind the HTTP server to a local port (default 3381).
+  version: 1.0.0
+  contact:
+    name: Farcaster
+    url: https://snapchain.farcaster.xyz/
+  license:
+    name: MIT
+servers:
+- url: https://snapchain.farcaster.xyz
+  description: Public Snapchain reference endpoint
+- url: http://127.0.0.1:3381
+  description: Default local Snapchain HTTP server
+tags:
+- name: Submit
+paths:
+  /v1/submitMessage:
+    post:
+      tags:
+      - Submit
+      summary: Submit a signed protobuf message to the hub
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Submitted message
+  /v1/submitBulkMessages:
+    post:
+      tags:
+      - Submit
+      summary: Submit a batch of signed protobuf messages
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Submission result
+  /v1/validateMessage:
+    post:
+      tags:
+      - Submit
+      summary: Validate a signed protobuf message without writing
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Validation result

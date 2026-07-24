@@ -1,0 +1,96 @@
+openapi: 3.1.0
+info:
+  title: Farcaster Snapchain Hub HTTP Casts UserData API
+  description: HTTP query interface for Farcaster's Snapchain network. Read casts, reactions, follows, user data, verifications and on-chain events by FID; submit signed protobuf messages; and stream hub events. The public reference endpoint is hosted at https://snapchain.farcaster.xyz, but operators typically run their own Snapchain node and bind the HTTP server to a local port (default 3381).
+  version: 1.0.0
+  contact:
+    name: Farcaster
+    url: https://snapchain.farcaster.xyz/
+  license:
+    name: MIT
+servers:
+- url: https://snapchain.farcaster.xyz
+  description: Public Snapchain reference endpoint
+- url: http://127.0.0.1:3381
+  description: Default local Snapchain HTTP server
+tags:
+- name: UserData
+paths:
+  /v1/userDataByFid:
+    get:
+      tags:
+      - UserData
+      summary: List user data records for a FID
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      - in: query
+        name: user_data_type
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of user data
+  /v1/storageLimitsByFid:
+    get:
+      tags:
+      - UserData
+      summary: Get storage limits for a FID
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      responses:
+        '200':
+          description: Storage limit info
+  /v1/userNameProofByName:
+    get:
+      tags:
+      - UserData
+      summary: Resolve a username proof by name
+      parameters:
+      - in: query
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Username proof
+  /v1/userNameProofsByFid:
+    get:
+      tags:
+      - UserData
+      summary: List username proofs for a FID
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of username proofs
+components:
+  parameters:
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean
+    PageToken:
+      in: query
+      name: pageToken
+      schema:
+        type: string
+    PageSize:
+      in: query
+      name: pageSize
+      schema:
+        type: integer
+    Fid:
+      in: query
+      name: fid
+      required: true
+      schema:
+        type: integer
+      description: Farcaster ID

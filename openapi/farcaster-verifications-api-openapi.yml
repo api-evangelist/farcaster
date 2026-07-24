@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: Farcaster Snapchain Hub HTTP Casts Verifications API
+  description: HTTP query interface for Farcaster's Snapchain network. Read casts, reactions, follows, user data, verifications and on-chain events by FID; submit signed protobuf messages; and stream hub events. The public reference endpoint is hosted at https://snapchain.farcaster.xyz, but operators typically run their own Snapchain node and bind the HTTP server to a local port (default 3381).
+  version: 1.0.0
+  contact:
+    name: Farcaster
+    url: https://snapchain.farcaster.xyz/
+  license:
+    name: MIT
+servers:
+- url: https://snapchain.farcaster.xyz
+  description: Public Snapchain reference endpoint
+- url: http://127.0.0.1:3381
+  description: Default local Snapchain HTTP server
+tags:
+- name: Verifications
+paths:
+  /v1/verificationsByFid:
+    get:
+      tags:
+      - Verifications
+      summary: List verifications for a FID
+      parameters:
+      - $ref: '#/components/parameters/Fid'
+      - in: query
+        name: address
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageToken'
+      - $ref: '#/components/parameters/Reverse'
+      responses:
+        '200':
+          description: Page of verifications
+components:
+  parameters:
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean
+    PageToken:
+      in: query
+      name: pageToken
+      schema:
+        type: string
+    PageSize:
+      in: query
+      name: pageSize
+      schema:
+        type: integer
+    Fid:
+      in: query
+      name: fid
+      required: true
+      schema:
+        type: integer
+      description: Farcaster ID
