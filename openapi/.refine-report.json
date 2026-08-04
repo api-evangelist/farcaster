@@ -1,0 +1,30 @@
+{
+  "provider": "farcaster",
+  "sources": [
+    "farcaster-casts-api-openapi.yml",
+    "farcaster-events-api-openapi.yml",
+    "farcaster-info-api-openapi.yml",
+    "farcaster-links-api-openapi.yml",
+    "farcaster-onchain-api-openapi.yml",
+    "farcaster-reactions-api-openapi.yml",
+    "farcaster-submit-api-openapi.yml",
+    "farcaster-userdata-api-openapi.yml",
+    "farcaster-verifications-api-openapi.yml"
+  ],
+  "outputs": [
+    "farcaster-casts-api-openapi.yml",
+    "farcaster-events-api-openapi.yml",
+    "farcaster-info-api-openapi.yml",
+    "farcaster-links-api-openapi.yml",
+    "farcaster-onchain-api-openapi.yml",
+    "farcaster-reactions-api-openapi.yml",
+    "farcaster-submit-api-openapi.yml",
+    "farcaster-userdata-api-openapi.yml",
+    "farcaster-verifications-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
