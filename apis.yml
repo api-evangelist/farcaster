@@ -36,7 +36,7 @@ tags:
 - Web3
 - SDKs
 url: https://raw.githubusercontent.com/api-evangelist/farcaster/refs/heads/main/apis.yml
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 apis:
 - aid: farcaster:snapchain
   name: Snapchain / Hub API
