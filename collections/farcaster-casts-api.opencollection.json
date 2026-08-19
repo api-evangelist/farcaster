@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Farcaster Snapchain Hub HTTP Casts API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Casts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a cast by FID and hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/castById",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a cast by FID and hash"
+        },
+        {
+          "info": {
+            "name": "List casts authored by a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/castsByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startTimestamp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stopTimestamp",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List casts authored by a FID"
+        },
+        {
+          "info": {
+            "name": "List casts that reply to a given parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/castsByParent",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List casts that reply to a given parent"
+        },
+        {
+          "info": {
+            "name": "List casts mentioning a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/castsByMention",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List casts mentioning a FID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

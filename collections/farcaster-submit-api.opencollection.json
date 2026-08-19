@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Farcaster Snapchain Hub HTTP Casts Submit API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Submit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a signed protobuf message to the hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://snapchain.farcaster.xyz/v1/submitMessage"
+          },
+          "docs": "Submit a signed protobuf message to the hub"
+        },
+        {
+          "info": {
+            "name": "Submit a batch of signed protobuf messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://snapchain.farcaster.xyz/v1/submitBulkMessages"
+          },
+          "docs": "Submit a batch of signed protobuf messages"
+        },
+        {
+          "info": {
+            "name": "Validate a signed protobuf message without writing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://snapchain.farcaster.xyz/v1/validateMessage"
+          },
+          "docs": "Validate a signed protobuf message without writing"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

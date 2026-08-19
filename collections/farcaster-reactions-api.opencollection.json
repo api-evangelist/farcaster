@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Farcaster Snapchain Hub HTTP Casts Reactions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a reaction by FID and target",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/reactionById",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "target_fid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_hash",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reaction_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a reaction by FID and target"
+        },
+        {
+          "info": {
+            "name": "List reactions authored by a FID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/reactionsByFid",
+            "params": [
+              {
+                "name": "fid",
+                "value": "",
+                "type": "query",
+                "description": "Farcaster ID"
+              },
+              {
+                "name": "reaction_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List reactions authored by a FID"
+        },
+        {
+          "info": {
+            "name": "List reactions targeting a cast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/reactionsByCast",
+            "params": [
+              {
+                "name": "target_fid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "target_hash",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reaction_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List reactions targeting a cast"
+        },
+        {
+          "info": {
+            "name": "List reactions targeting a URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/reactionsByTarget",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reaction_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List reactions targeting a URL"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

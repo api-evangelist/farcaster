@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Farcaster Snapchain Hub HTTP Casts Events API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stream hub events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/events",
+            "params": [
+              {
+                "name": "from_event_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shard_index",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stop_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reverse",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Stream hub events"
+        },
+        {
+          "info": {
+            "name": "Get a hub event by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://snapchain.farcaster.xyz/v1/eventById",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "shard_index",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a hub event by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

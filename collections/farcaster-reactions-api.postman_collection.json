@@ -1,0 +1,426 @@
+{
+  "item": [
+    {
+      "id": "0c4b3225-74f1-41f4-856a-d2a6d45242b1",
+      "name": "Reactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2b63b2ea-6849-420f-a8d5-81b249926d4c",
+          "name": "Get a reaction by FID and target",
+          "request": {
+            "name": "Get a reaction by FID and target",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "reactionById"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fid",
+                  "value": "<integer>",
+                  "description": "(Required) Farcaster ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "target_fid",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "target_hash",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "reaction_type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "736a4651-37b4-4c23-82da-9046b3117a0c",
+              "name": "Reaction message",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reactionById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "target_fid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "target_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reaction_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09deb2f8-0d54-4b83-9a02-e86e1161fa1f",
+          "name": "List reactions authored by a FID",
+          "request": {
+            "name": "List reactions authored by a FID",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "reactionsByFid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fid",
+                  "value": "<integer>",
+                  "description": "(Required) Farcaster ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "reaction_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "reverse",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86b5b7aa-4530-41c9-aa6d-918de0d50666",
+              "name": "Page of reactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reactionsByFid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "reaction_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reverse",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6869818e-a9a1-4fc0-a903-21f7e0cb61c2",
+          "name": "List reactions targeting a cast",
+          "request": {
+            "name": "List reactions targeting a cast",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "reactionsByCast"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "target_fid",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "target_hash",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "reaction_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "reverse",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "653bb901-1274-4ed9-bf50-9b4c678e3815",
+              "name": "Page of reactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reactionsByCast"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "target_fid",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "target_hash",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reaction_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reverse",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0f3e10d-35ad-4c37-ad0f-e6dd4590b287",
+          "name": "List reactions targeting a URL",
+          "request": {
+            "name": "List reactions targeting a URL",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "reactionsByTarget"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "reaction_type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c571c2e5-6f98-4c63-b3fd-a6d537fee691",
+              "name": "Page of reactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reactionsByTarget"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reaction_type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://snapchain.farcaster.xyz",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6dd55a61-293a-4944-822d-5ebe6b099292",
+    "name": "Farcaster Snapchain Hub HTTP Casts Reactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP query interface for Farcaster's Snapchain network. Read casts, reactions, follows, user data, verifications and on-chain events by FID; submit signed protobuf messages; and stream hub events. The public reference endpoint is hosted at https://snapchain.farcaster.xyz, but operators typically run their own Snapchain node and bind the HTTP server to a local port (default 3381).\n\nContact Support:\n Name: Farcaster",
+      "type": "text/plain"
+    }
+  }
+}
