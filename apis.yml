@@ -34,6 +34,15 @@ tags:
 - Frames
 - Authentication
 - Web3
+- SDK
+tags_raw:
+- Social
+- Decentralized
+- Protocol
+- Mini Apps
+- Frames
+- Authentication
+- Web3
 - SDKs
 url: https://raw.githubusercontent.com/api-evangelist/farcaster/refs/heads/main/apis.yml
 specificationVersion: '0.23'
@@ -118,6 +127,11 @@ apis:
   - Neynar
   - Indexer
   - Hosted Hub
+  - Webhook
+  tags_raw:
+  - Neynar
+  - Indexer
+  - Hosted Hub
   - Webhooks
   properties:
   - type: Documentation
@@ -154,6 +168,8 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -184,6 +200,8 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
+  - Onchain
+  tags_raw:
   - OnChain
   properties:
   - type: OpenAPI
@@ -214,6 +232,8 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
+  - User Data
+  tags_raw:
   - UserData
   properties:
   - type: OpenAPI
@@ -224,6 +244,8 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
+  - Verification
+  tags_raw:
   - Verifications
   properties:
   - type: OpenAPI
