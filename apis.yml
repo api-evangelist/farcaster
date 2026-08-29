@@ -9,6 +9,17 @@ description: Farcaster is a decentralised social protocol built on Snapchain, an
   consumer surface. Indexer providers such as Neynar host scaled Hub APIs and value-added
   read / write / webhook APIs at api.neynar.com.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: unknown
