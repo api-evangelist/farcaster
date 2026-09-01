@@ -211,7 +211,7 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
-  - OnChain
+  - Onchain
   tags_raw:
   - OnChain
   properties:
@@ -243,7 +243,7 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
-  - UserData
+  - User Data
   tags_raw:
   - UserData
   properties:
@@ -255,7 +255,7 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
-  - Verifications
+  - Verification
   tags_raw:
   - Verifications
   properties:
