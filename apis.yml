@@ -34,7 +34,7 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/farcaster.png
 access: 3rd-Party
-position: Producer
+position: Producing
 created: '2026-05-23'
 modified: '2026-05-23'
 tags:
