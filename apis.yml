@@ -205,18 +205,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/farcaster-links-api-openapi.yml
-- aid: farcaster:farcaster-onchain-api
-  name: Farcaster OnChain API
-  description: The OnChain API from Farcaster — 4 operation(s) for onchain.
-  humanURL: https://snapchain.farcaster.xyz/
-  baseURL: https://snapchain.farcaster.xyz
-  tags:
-  - Onchain
-  tags_raw:
-  - OnChain
-  properties:
-  - type: OpenAPI
-    url: openapi/farcaster-onchain-api-openapi.yml
 - aid: farcaster:farcaster-reactions-api
   name: Farcaster Reactions API
   description: The Reactions API from Farcaster — 4 operation(s) for reactions.
@@ -237,18 +225,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/farcaster-submit-api-openapi.yml
-- aid: farcaster:farcaster-userdata-api
-  name: Farcaster UserData API
-  description: The UserData API from Farcaster — 4 operation(s) for userdata.
-  humanURL: https://snapchain.farcaster.xyz/
-  baseURL: https://snapchain.farcaster.xyz
-  tags:
-  - User Data
-  tags_raw:
-  - UserData
-  properties:
-  - type: OpenAPI
-    url: openapi/farcaster-userdata-api-openapi.yml
 - aid: farcaster:farcaster-verifications-api
   name: Farcaster Verifications API
   description: The Verifications API from Farcaster — 1 operation(s) for verifications.
@@ -261,6 +237,26 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/farcaster-verifications-api-openapi.yml
+- aid: farcaster:farcaster-on-chain-api
+  name: Farcaster On Chain API
+  description: The On Chain API from Farcaster — 4 operation(s) for on chain.
+  humanURL: https://snapchain.farcaster.xyz/
+  baseURL: https://snapchain.farcaster.xyz
+  tags:
+  - On Chain
+  properties:
+  - type: OpenAPI
+    url: openapi/farcaster-on-chain-api-openapi.yml
+- aid: farcaster:farcaster-user-data-api
+  name: Farcaster User Data API
+  description: The User Data API from Farcaster — 4 operation(s) for user data.
+  humanURL: https://snapchain.farcaster.xyz/
+  baseURL: https://snapchain.farcaster.xyz
+  tags:
+  - User Data
+  properties:
+  - type: OpenAPI
+    url: openapi/farcaster-user-data-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/farcaster-agentic-access.yml
