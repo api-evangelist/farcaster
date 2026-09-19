@@ -46,8 +46,8 @@ tags:
 - Authentication
 - Web3
 - SDK
-- Farcaster
 tags_raw:
+- Farcaster
 - Social
 - Decentralized
 - Protocol
@@ -244,6 +244,8 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
+  - Onchain
+  tags_raw:
   - On Chain
   properties:
   - type: OpenAPI
