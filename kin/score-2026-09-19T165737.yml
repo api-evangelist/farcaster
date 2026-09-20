@@ -1,22 +1,22 @@
-# Kin Score artifact — farcaster — 2026-08-19T080027
+# Kin Score artifact — farcaster — 2026-09-19T165737
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: farcaster
-  schema_version: 0.12.0
-  scored_at: '2026-08-19'
-  run_ts: 2026-08-19T080027
-  composite: 30.6
+  schema_version: 0.22.0
+  scored_at: '2026-09-19'
+  run_ts: 2026-09-19T165737
+  composite: 31.8
   band: thin
   facets:
-    discoverability: 68.5
-    contract_quality: 50.6
-    governance: 0.0
+    discoverability: 63.0
+    contract_quality: 54.8
+    contract_governance: 0.0
     operational_transparency: 26.3
-    developer_ergonomics: 9.5
-    commercial_clarity: 28.9
+    developer_ergonomics: 16.7
+    access_clarity: 28.9
   agent_readiness:
-    score: 20.5
+    score: 18.5
     band: agent-aware
     dimensions:
       spec_presence: true
@@ -26,7 +26,7 @@ kin_score:
       auth_clarity: false
       idempotency: false
       error_semantics: false
-      openapi_examples: false
+      openapi_examples: documented
       rate_limit_signal: documented
       event_surface_described: false
       agent_skills: false
@@ -34,6 +34,10 @@ kin_score:
       consent_identity: false
       agent_card: false
       dry_run_mode: false
+      delegated_identity: false
+      protected_resource_metadata: false
+      dynamic_client_registration: false
+      agentic_commerce: false
   provenance:
     agentic_access: derived
     contracts:
