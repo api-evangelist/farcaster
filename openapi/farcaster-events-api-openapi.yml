@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Farcaster Snapchain Hub HTTP Casts Events API
+  title: Farcaster Snapchain Hub HTTP Events API
   description: HTTP query interface for Farcaster's Snapchain network. Read casts, reactions, follows, user data, verifications and on-chain events by FID; submit signed protobuf messages; and stream hub events. The public reference endpoint is hosted at https://snapchain.farcaster.xyz, but operators typically run their own Snapchain node and bind the HTTP server to a local port (default 3381).
   version: 1.0.0
   contact:
@@ -40,6 +40,8 @@ paths:
       responses:
         '200':
           description: Page of events
+      operationId: getV1Events
+      x-operation-id-source: derived
   /v1/eventById:
     get:
       tags:
@@ -58,18 +60,20 @@ paths:
       responses:
         '200':
           description: Event
+      operationId: getV1EventById
+      x-operation-id-source: derived
 components:
   parameters:
-    Reverse:
-      in: query
-      name: reverse
-      schema:
-        type: boolean
     PageSize:
       in: query
       name: pageSize
       schema:
         type: integer
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean
     PageToken:
       in: query
       name: pageToken

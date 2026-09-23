@@ -1,15 +1,7 @@
 {
   "provider": "farcaster",
   "sources": [
-    "farcaster-casts-api-openapi.yml",
-    "farcaster-events-api-openapi.yml",
-    "farcaster-info-api-openapi.yml",
-    "farcaster-links-api-openapi.yml",
-    "farcaster-onchain-api-openapi.yml",
-    "farcaster-reactions-api-openapi.yml",
-    "farcaster-submit-api-openapi.yml",
-    "farcaster-userdata-api-openapi.yml",
-    "farcaster-verifications-api-openapi.yml"
+    "_original/farcaster-openapi.yml"
   ],
   "outputs": [
     "farcaster-casts-api-openapi.yml",
@@ -22,9 +14,26 @@
     "farcaster-userdata-api-openapi.yml",
     "farcaster-verifications-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "farcaster-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: farcaster-on-chain-api-openapi.yml, farcaster-user-data-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 15 total)"
+  ],
+  "skipped": [
+    "farcaster-casts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farcaster-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farcaster-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farcaster-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farcaster-on-chain-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farcaster-reactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farcaster-submit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farcaster-user-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farcaster-verifications-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
