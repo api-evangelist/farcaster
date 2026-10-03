@@ -64,18 +64,18 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    Reverse:
-      in: query
-      name: reverse
-      schema:
-        type: boolean
-    PageToken:
-      in: query
-      name: pageToken
-      schema:
-        type: string
     PageSize:
       in: query
       name: pageSize
       schema:
         type: integer
+    PageToken:
+      in: query
+      name: pageToken
+      schema:
+        type: string
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean

@@ -99,16 +99,11 @@ paths:
       x-operation-id-source: derived
 components:
   parameters:
-    Reverse:
+    PageSize:
       in: query
-      name: reverse
+      name: pageSize
       schema:
-        type: boolean
-    PageToken:
-      in: query
-      name: pageToken
-      schema:
-        type: string
+        type: integer
     Fid:
       in: query
       name: fid
@@ -116,8 +111,13 @@ components:
       schema:
         type: integer
       description: Farcaster ID
-    PageSize:
+    PageToken:
       in: query
-      name: pageSize
+      name: pageToken
       schema:
-        type: integer
+        type: string
+    Reverse:
+      in: query
+      name: reverse
+      schema:
+        type: boolean
