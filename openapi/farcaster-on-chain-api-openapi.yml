@@ -94,13 +94,6 @@ components:
       name: pageSize
       schema:
         type: integer
-    Fid:
-      in: query
-      name: fid
-      required: true
-      schema:
-        type: integer
-      description: Farcaster ID
     PageToken:
       in: query
       name: pageToken
@@ -111,3 +104,10 @@ components:
       name: reverse
       schema:
         type: boolean
+    Fid:
+      in: query
+      name: fid
+      required: true
+      schema:
+        type: integer
+      description: Farcaster ID
