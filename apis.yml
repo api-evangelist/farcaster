@@ -245,6 +245,8 @@ apis:
   humanURL: https://snapchain.farcaster.xyz/
   baseURL: https://snapchain.farcaster.xyz
   tags:
+  - Onchain
+  tags_raw:
   - On Chain
   properties:
   - type: OpenAPI
