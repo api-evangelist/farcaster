@@ -260,6 +260,12 @@ apis:
   - type: OpenAPI
     url: openapi/farcaster-user-data-api-openapi.yml
 common:
+- type: Plans
+  url: plans/farcaster-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/farcaster-rate-limits.yml
+- type: FinOps
+  url: finops/farcaster-finops.yml
 - url: https://farcaster.xyz/blog/
   type: Blog
 - type: AgenticAccess
