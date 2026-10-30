@@ -1,4 +1,4 @@
-# Farcaster (farcaster)
+# Farcaster
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,163 +66,142 @@
 
 Farcaster is a decentralised social protocol built on Snapchain, an append-only state machine that stores casts, reactions, follows, and user profile data. The protocol publishes a Hub / Snapchain reference implementation, the Mini Apps SDK (formerly Frames) for distributing interactive apps inside Farcaster feeds, Sign In with Farcaster (SIWF) for authentication, and AuthKit for React-based sign-in. The Warpcast client (now rebranded Farcaster app at farcaster.xyz) is the primary consumer surface. Indexer providers such as Neynar host scaled Hub APIs and value-added read / write / webhook APIs at api.neynar.com.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/farcaster/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/farcaster/refs/heads/main/apis.yml)
+**Areas:** Farcaster · Social · Decentralized · Protocol · Mini Apps · Frames · Authentication · Web3 · SDK
 
-## Scope
+## Farcaster on APIs.io
 
-- **Type:** Index
-- **Position:** Producer
-- **Access:** 3rd-Party
+Everything profiled for Farcaster is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/farcaster/](https://apis.io/providers/farcaster/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (15)
 
-- Social
-- Decentralized
-- Protocol
-- Mini Apps
-- Frames
-- Authentication
-- Web3
-- SDKs
+- [Snapchain / Hub API](https://apis.io/apis/farcaster/snapchain/) — Query interface for Farcaster's Snapchain network - read casts, reactions, follows, user data, and verifications by FID; submit signed messages; and run a…
+- [Farcaster Mini Apps SDK](https://apis.io/apis/farcaster/mini-apps-sdk/) — JavaScript SDK for building Mini Apps (the evolution of Frames) that run inside Farcaster feeds and clients. Provides host bridge, context, wallet actions,…
+- [Sign In with Farcaster (SIWF)](https://apis.io/apis/farcaster/siwf/) — Authentication flow that lets users sign in to third-party apps with their Farcaster identity, returning a verified FID and optional profile data. Backed by…
+- [Farcaster AuthKit (React)](https://apis.io/apis/farcaster/auth-kit/) — React toolkit wrapping Sign In with Farcaster - provides hooks and components for the QR-code / deep-link handoff to a Farcaster client and returns the…
+- [Neynar Hosted Farcaster API](https://apis.io/apis/farcaster/neynar/) — Third-party indexer providing hosted Hub access, indexed read APIs (users, casts, channels, feeds), write APIs (publish casts, reactions, follows), webhooks…
+- [Warpcast / Farcaster Client API](https://apis.io/apis/farcaster/warpcast-api/) — Client-side API exposed by the Warpcast / Farcaster app for client-specific surfaces (channels, mentions, direct casts, mini-app contexts) layered above the…
+- [Farcaster Casts API](https://apis.io/apis/farcaster/farcaster-casts-api/) — The Casts API from Farcaster — 4 operation(s) for casts.
+- [Farcaster Events API](https://apis.io/apis/farcaster/farcaster-events-api/) — The Events API from Farcaster — 2 operation(s) for events.
+- [Farcaster Info API](https://apis.io/apis/farcaster/farcaster-info-api/) — The Info API from Farcaster — 2 operation(s) for info.
+- [Farcaster Links API](https://apis.io/apis/farcaster/farcaster-links-api/) — The Links API from Farcaster — 3 operation(s) for links.
+- [Farcaster Reactions API](https://apis.io/apis/farcaster/farcaster-reactions-api/) — The Reactions API from Farcaster — 4 operation(s) for reactions.
+- [Farcaster Submit API](https://apis.io/apis/farcaster/farcaster-submit-api/) — The Submit API from Farcaster — 3 operation(s) for submit.
+- [Farcaster Verifications API](https://apis.io/apis/farcaster/farcaster-verifications-api/) — The Verifications API from Farcaster — 1 operation(s) for verifications.
+- [Farcaster On Chain API](https://apis.io/apis/farcaster/farcaster-on-chain-api/) — The On Chain API from Farcaster — 4 operation(s) for on chain.
+- [Farcaster User Data API](https://apis.io/apis/farcaster/farcaster-user-data-api/) — The User Data API from Farcaster — 4 operation(s) for user data.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-23
-- **Modified:** 2026-05-23
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### Snapchain / Hub API
+GraphQL schemas.
 
-Query interface for Farcaster's Snapchain network - read casts, reactions, follows, user data, and verifications by FID; submit signed messages; and run a Snapchain node for full replication. Public reference endpoint is hosted at snapchain.farcaster.xyz.
+- [Farcaster GraphQL Schema](https://apis.io/graphqls/farcaster/farcaster-graphql/)
 
-- **Human URL:** [https://snapchain.farcaster.xyz/](https://snapchain.farcaster.xyz/)
-- **Base URL:** `https://snapchain.farcaster.xyz`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Snapchain
-- Hub API
-- Reads
-- Writes
+- [Farcaster Agentic Access](https://apis.io/agentic-access/farcaster/farcaster-agentic-access/)
 
-#### Properties
+#### Collections (10)
 
-- [Documentation](https://snapchain.farcaster.xyz/)
-- [Reference](https://snapchain.farcaster.xyz/reference)
-- [Run a  Node](https://snapchain.farcaster.xyz/guides/running-a-node)
-- [Postman Collection](collections/farcaster.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/farcaster.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Farcaster Mini Apps SDK
+- [Farcaster Snapchain Hub HTTP API](https://apis.io/collections/farcaster/open-farcaster/)
+- [Farcaster Snapchain Hub HTTP Casts API](https://apis.io/collections/farcaster/open-farcaster-casts-api/)
+- [Farcaster Snapchain Hub HTTP Casts Events API](https://apis.io/collections/farcaster/open-farcaster-events-api/)
+- [Farcaster Snapchain Hub HTTP Casts Info API](https://apis.io/collections/farcaster/open-farcaster-info-api/)
+- [Farcaster Snapchain Hub HTTP Casts Links API](https://apis.io/collections/farcaster/open-farcaster-links-api/)
+- [Farcaster Snapchain Hub HTTP Casts OnChain API](https://apis.io/collections/farcaster/open-farcaster-onchain-api/)
+- [Farcaster Snapchain Hub HTTP Casts Reactions API](https://apis.io/collections/farcaster/open-farcaster-reactions-api/)
+- [Farcaster Snapchain Hub HTTP Casts Submit API](https://apis.io/collections/farcaster/open-farcaster-submit-api/)
+- [Farcaster Snapchain Hub HTTP Casts UserData API](https://apis.io/collections/farcaster/open-farcaster-userdata-api/)
+- [Farcaster Snapchain Hub HTTP Casts Verifications API](https://apis.io/collections/farcaster/open-farcaster-verifications-api/)
 
-JavaScript SDK for building Mini Apps (the evolution of Frames) that run inside Farcaster feeds and clients. Provides host bridge, context, wallet actions, notifications, and analytics for permissionlessly distributed social apps.
+#### Security (1)
 
-- **Human URL:** [https://miniapps.farcaster.xyz/](https://miniapps.farcaster.xyz/)
-- **Base URL:** `https://miniapps.farcaster.xyz/`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Farcaster Domain Security](https://apis.io/security/farcaster/farcaster-domain-security/)
 
-- Mini Apps
-- Frames
-- SDK
-- Social
+#### Plans and pricing (1)
 
-#### Properties
+Published plans, tiers and prices.
 
-- [Documentation](https://miniapps.farcaster.xyz/)
-- [Postman Collection](collections/farcaster.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/farcaster.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Farcaster Plans Pricing](https://apis.io/plans/farcaster/farcaster-plans-pricing/)
 
-### Sign In with Farcaster (SIWF)
+#### Rate limits (1)
 
-Authentication flow that lets users sign in to third-party apps with their Farcaster identity, returning a verified FID and optional profile data. Backed by EIP-4361-style signed messages.
+Published request limits.
 
-- **Human URL:** [https://docs.farcaster.xyz/developers/siwf](https://docs.farcaster.xyz/developers/siwf)
-- **Base URL:** `https://docs.farcaster.xyz/developers/siwf`
+- [Farcaster Rate Limits](https://apis.io/rate-limits/farcaster/farcaster-rate-limits/)
 
-#### Tags
+#### FinOps (1)
 
-- Authentication
-- SIWF
-- Identity
+What the API costs to run, by operation.
 
-#### Properties
+- [Farcaster Finops](https://apis.io/finops/farcaster/farcaster-finops/)
 
-- [Documentation](https://docs.farcaster.xyz/developers/siwf)
-- [Postman Collection](collections/farcaster.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/farcaster.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+## Where to find this API
 
-### Farcaster AuthKit (React)
-
-React toolkit wrapping Sign In with Farcaster - provides hooks and components for the QR-code / deep-link handoff to a Farcaster client and returns the verified user context to the host app.
-
-- **Human URL:** [https://docs.farcaster.xyz/auth-kit/installation](https://docs.farcaster.xyz/auth-kit/installation)
-- **Base URL:** `https://docs.farcaster.xyz/auth-kit/installation`
-
-#### Tags
-
-- SDK
-- React
-- Authentication
-
-#### Properties
-
-- [Documentation](https://docs.farcaster.xyz/auth-kit/installation)
-- [Examples](https://docs.farcaster.xyz/auth-kit/examples)
-- [Postman Collection](collections/farcaster.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/farcaster.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Neynar Hosted Farcaster API
-
-Third-party indexer providing hosted Hub access, indexed read APIs (users, casts, channels, feeds), write APIs (publish casts, reactions, follows), webhooks for real-time events, a Node.js SDK, and a Mini Apps framework with analytics. Most widely used scaled gateway to Farcaster data.
-
-- **Human URL:** [https://docs.neynar.com/](https://docs.neynar.com/)
-- **Base URL:** `https://api.neynar.com`
-
-#### Tags
-
-- Neynar
-- Indexer
-- Hosted Hub
-- Webhooks
-
-#### Properties
-
-- [Documentation](https://docs.neynar.com/)
-- [Reference](https://docs.neynar.com/reference)
-- [Postman Collection](collections/farcaster.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/farcaster.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Warpcast / Farcaster Client API
-
-Client-side API exposed by the Warpcast / Farcaster app for client-specific surfaces (channels, mentions, direct casts, mini-app contexts) layered above the Snapchain protocol APIs.
-
-- **Human URL:** [https://docs.farcaster.xyz/reference/warpcast/api](https://docs.farcaster.xyz/reference/warpcast/api)
-- **Base URL:** `https://api.warpcast.com`
-
-#### Tags
-
-- Warpcast
-- Client API
-- Channels
-
-#### Properties
-
-- [Documentation](https://docs.farcaster.xyz/reference/warpcast/api)
-- [Postman Collection](collections/farcaster.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/farcaster.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.farcaster.xyz/)
 - [Documentation](https://docs.farcaster.xyz/)
-- [Mini  Apps](https://miniapps.farcaster.xyz/)
-- [Snapchain](https://snapchain.farcaster.xyz/)
-- [Git Hub](https://github.com/farcasterxyz)
-- [Neynar](https://neynar.com/)
+- [Blog](https://farcaster.xyz/blog/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** API Evangelist
-**URL:** https://apievangelist.com
+**Kin Score 22.9** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.7 |
+| Contract quality | 50.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 5.3 |
+
+**Agent readiness 16.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 5.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/farcaster/](https://apis.io/providers/farcaster/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Farcaster: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/farcaster/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
